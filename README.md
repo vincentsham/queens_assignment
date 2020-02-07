@@ -7,12 +7,13 @@ python3 __init__.py
 ```
 ## Requested Features
 The website shows the top ten newest Android-related questions and the top 10 most voted Android-related questions. In the navigation bar, users can switch the view of the newest questions or the most voted questions. Users can click on the questions, and then the content and replies will pop up below. Users can re-click the questions to hide the details.
+
 ------
 ## New Features
 1. I implemented a filter bar that allows users to type in keywords to filter the questions.
 2. I implemented a simple backend application to notify me if the website has any errors via email.
 ```
-nohup python3 notification.py sender recevier password logfile
+nohup python3 notification.py sender recevier password logfile &
 ```
 ------
 ## Future Improvements

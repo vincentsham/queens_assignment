@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <style>
+    body > .container {
+      padding: 60px 15px 0;
+    }
+    .footer > .container {
+      padding-right: 15px;
+      padding-left: 15px;
+	  
+    }
+    code {
+      font-size: 80%;
+    }
+	pre {
+		background-color: lightgray;
+	}
+	.date {
+		float : right;
+	}
+
+	#filterbar {
+		padding-left: 15px
+	}
+	ul.navbar-nav {
+    	padding-right: 30px;
+    	padding-left: 30px;
+	}
+
+  </style>
+</head>
+<body>
+<script>
+	function search() {
+		var input, filter, cards, txtValue, lst_keywords;
+		input = document.getElementById("filterbar");
+		filter = input.value.toUpperCase();
+		lst_keywords = filter.split(" ",10)
+		cards = document.getElementsByClassName("card");
+		for (i = 0; i < cards.length; i++) {
+			txtValue = cards[i].getElementsByClassName("topic")[0].textContent;
+			cards[i].style.display = "";
+			for (j = 0; j <lst_keywords.length; j++){
+				if (txtValue.toUpperCase().indexOf(lst_keywords[j]) > -1) {
+				} else {
+					cards[i].style.display = "none";
+				}
+			}
+
+		}
+	}
+</script>
+
+
+<div class="container">
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+		<a class="navbar-brand">Queen's Assignment</a>
+		<ul class="navbar-nav">
+			{% if option == None or option == "newest" %}
+				{% set newest_nav = "active" %}
+				{% set votes_nav = "" %}
+			{% else %}
+				{% set newest_nav = "" %}
+				{% set votes_nav = "active" %}
+			{% endif %}
+			<li class="nav-item {{newest_nav}}">
+				<a class="nav-link" href="/main?q=newest">Newest</a>
+				
+			</li>
+			<li class="nav-item {{votes_nav}}">
+				<a class="nav-link" href="/main?q=votes">Votes</a>
+			</li>
+		</ul>
+		<input type="text" id="filterbar" onkeyup="search()" placeholder="Filter for topics">
+	</nav>
+	<div></div>
+	
+	<div class="posts">
+		{% for i in range(l) %}
+		<div class="card">
+			<div class="card-header">
+				<button type="button" class="btn btn-primary" 
+					data-toggle="collapse" data-target="#q{{i}}">
+					<span class="topic">
+						{{ data.questions[i]["q"][5:] }}
+					</span>
+					<span class="badge badge-success">
+						{{ data.questions[i]["v"] }} votes
+					</span>
+				</button>
+				<span class='date'>{{ data.questions[i]["date"] }} </span>
+			</div>
+			<div id="q{{i}}" class="collapse">
+				<div class="card-body">	
+					<h5>Content:</h5>
+					<p>
+						{{data.questions[i]['content']|safe}}
+					</p>
+					<h5>Replies:</h5>
+					<ol>
+					{% for a in data.questions[i]["a"] %}
+						<li>
+							{{a|safe}}
+						</li>
+					{% endfor %}
+					</ol>
+					<h5>URL:</h5>
+					<a href="{{data.questions[i]['q_url']}}">{{data.questions[i]['q_url']}}</a>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+  </div>
+</body>

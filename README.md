@@ -1,4 +1,5 @@
 # Queen's Assignment
+Temporary link of the website: http://138.197.129.191/main/
 
 ## Usage
 To start the website on local host

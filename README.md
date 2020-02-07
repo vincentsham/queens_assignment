@@ -13,7 +13,7 @@ The website shows the top ten newest Android-related questions and the top 10 mo
 1. I implemented a filter bar that allows users to type in keywords to filter the questions.
 2. I implemented a simple backend application to notify me if the website has any errors via email.
 ```
-nohup python3 notification.py sender recevier password logfile &
+nohup python3 notification.py sender receiver password logfile &
 ```
 ------
 ## Future Improvements

@@ -1,4 +1,4 @@
-# Queen's Assignment
+# Stack Overflow Web Scraping
 Temporary link of the website: http://138.197.129.191/main/
 
 ## Usage
